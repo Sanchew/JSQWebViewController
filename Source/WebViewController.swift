@@ -54,8 +54,10 @@ open class WebViewController: UIViewController {
      Specifies whether or not to display the web view title as the navigation bar title.
      The default is `false`, which sets the navigation bar title to the URL host name of the URL request.
      */
-    public final var displaysWebViewTitle: Bool = false
+    public final var displaysWebViewTitle: Bool = true
 
+    public final var displaysActionItem: Bool = false
+    
     // MARK: Private properties
 
     private final let configuration: WKWebViewConfiguration
@@ -137,9 +139,11 @@ open class WebViewController: UIViewController {
                                                                action: #selector(didTapDoneButton(_:)))
         }
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action,
-                                                            target: self,
-                                                            action: #selector(didTapActionButton(_:)))
+        if displaysActionItem {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action,
+                                                                target: self,
+                                                                action: #selector(didTapActionButton(_:)))
+        }
 
         webView.load(urlRequest)
     }
